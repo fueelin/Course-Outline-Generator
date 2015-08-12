@@ -1,0 +1,70 @@
+{
+  "name": "Coursera Note Template",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "This extension can create a formatted outline for taking notes on a Coursera class.  This outline is divided by week, lecture, and section to match the structure of the course.",
+  "homepage_url": "http://wannabepolymath.com",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": true
+  },
+  "page_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Create Note Template"
+  },
+  "permissions": [
+    "tabs",
+    "http://localhost:3000/"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://class.coursera.org/*/lecture",
+        "https://www.coursera.org/learn/*/outline*",
+        "http://www.pluralsight.com/courses/*"
+      ],
+      "js": [
+        "js/content.js",
+
+        "lib/jquery/jquery.min.js",
+        "lib/handlebars/handlebars.min.js",
+        "lib/sugar/release/sugar-full.min.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://class.coursera.org/*/lecture"
+      ],
+      "js": [
+        "js/coursera-old.template.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.coursera.org/learn/*/outline*"
+      ],
+      "js": [
+        "js/coursera-new.template.js"
+      ]
+    },
+    {
+      "matches": [
+        "http://www.pluralsight.com/courses/*"
+      ],
+      "js": [
+        "js/pluralsight.template.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "templates/*.html"
+  ]
+}
